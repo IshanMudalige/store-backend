@@ -3,6 +3,17 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const nodemailer = require('nodemailer');
+
+var transport = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    //service:'gmail',
+    auth: {
+        user: "4c9ee4dbad6ee1",//yourmail@gmail.com
+        pass: "d63dd501c21343" //password
+    }
+});
 
 router.get('/', (req, res, next) => {
     User.find({isManager:true})
@@ -48,10 +59,30 @@ router.post('/signup', (req, res, next) => {
                             createdAt: new Date().toISOString()
                         });
 
+                        const message = {
+                            from: 'fashionhouse@fsh.com', // Sender address
+                            to: req.body.email,         // List of recipients
+                            subject: 'Manager Access-FashionStore', // Subject line
+                            //text: 'Message body in text' // Plain text body
+                            html: '<h1>FashionHouse Manager Access</h1>' +
+                                '<p>Hi '+req.body.firstName+',</p>'+
+                                '<p>You have been already assigned as a manager in FashionHouse.Start your work from now onwards.Your login credentials are</p>' +
+                                '<p>Email : <b>'+req.body.email+'</b></p><p>Password :<b> '+req.body.password+'</b></p>'+
+                                '<p>Thank You</p>'+
+                                '<p>System Admin</p>'
+                        };
+
                         manager.save()
                             .then(doc => {
                                 res.status(201).json({
                                     message: 'Manager Registered Successfully'
+                                });
+                                transport.sendMail(message, function(err, info) {
+                                    if (err) {
+                                        console.log(err)
+                                    } else {
+                                        console.log(info);
+                                    }
                                 });
                             })
                             .catch(er => {
