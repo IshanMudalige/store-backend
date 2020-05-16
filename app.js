@@ -11,7 +11,7 @@ const categoryRoutes = require('./api/routes/categories');
 const userRoutes = require('./api/routes/users');
 const managerRoutes = require('./api/routes/managers');
 const productRoutes = require('./api/routes/products');
-//const cartItemRoutes = require('./api/routes/cartItems');
+const cartItemRoutes = require('./api/routes/cartItems');
 //const orderRoutes = require('./api/routes/orders');
 
 app.use(cors());
@@ -22,7 +22,7 @@ app.use('/category', categoryRoutes);
 app.use('/user', userRoutes);
 app.use('/manager', managerRoutes);
 app.use('/products', productRoutes);
-//app.use('/cart', authenticate, cartItemRoutes);
+app.use('/cart', authenticate, cartItemRoutes);
 //app.use('/order', authenticate, orderRoutes);
 app.use((req, res, next) => {
     res.status(404).json({
