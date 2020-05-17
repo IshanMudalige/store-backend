@@ -157,5 +157,11 @@ router.get('/:categorySlug/:productSlug', (req, res, next) => {
 
 });
 
+router.post('/update/offer',(req,res,next) =>{
+
+
+
+});
+
 
 module.exports = router;
