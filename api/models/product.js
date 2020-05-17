@@ -23,9 +23,9 @@ const productSchema = mongoose.Schema({
     keyword: {type: String},
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true  },
     createdAt: { type: Date, default: Date.now },
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     updatedAt: Date,
-    updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' }
+    updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 module.exports = mongoose.model('Product', productSchema);

@@ -70,8 +70,6 @@ router.get('/:categorySlug', (req, res, next) => {
             if(category){
 
                 if(category.parent === ""){
-                    //its a parent category
-                    //Now find Chidrens
                     Category.find({"parent": category._id})
                         .select('_id name')
                         .exec()
