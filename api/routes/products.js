@@ -157,9 +157,27 @@ router.get('/:categorySlug/:productSlug', (req, res, next) => {
 
 });
 
-router.post('/update/offer',(req,res,next) =>{
+router.put('/update/offer',(req,res,next) =>{
 
+    const productId = req.body._id;
+    const offer = req.body.offer;
 
+    Product.update({"product":productId}, {
+        $set: {
+            "product.$.offer": offer
+        }
+    })
+        .exec()
+        .then(product => {
+            res.status(201).json({
+                message: product
+            });
+        })
+        .catch(error => {
+            res.status(500).json({
+                error: error
+            });
+        });
 
 });
 
