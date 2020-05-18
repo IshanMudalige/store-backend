@@ -95,8 +95,17 @@ router.post('/signup', (req, res, next) => {
             }
         })
 
+});
 
+router.delete('/delete/:id', function (req, res) {
+    let id = req.params.id;
 
+    User.findById(req.params.id).then(emp => {
+        emp.remove();
+        res.send('Manager removed');
+    }).catch(err =>{
+        res.send(err)
+    })
 });
 
 module.exports = router;

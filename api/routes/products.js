@@ -179,5 +179,35 @@ router.put('/update/offer',(req,res,next) =>{
 
 });
 
+router.put('/addReview', authenticate, (req, res, next) => {
+
+    const review = {
+        _id: new mongoose.Types.ObjectId(),
+        userId:req.body.userId,
+        name:req.body.name,
+        rating:req.body.rating,
+        review: req.body.review,
+        createdAt: new Date().toISOString()
+    }
+
+    const productId = req.body.productId;
+    console.log(review);
+   Product.findByIdAndUpdate(productId,{ $push:{reviews:review}})
+       .exec()
+       .then(product => {
+           res.status(201).json({
+               message: 'Review added'
+           });
+        })
+       .catch(error => {
+           res.status(500).json({
+               error:error
+           });
+       });
+
+
+});
+
+
 
 module.exports = router;
