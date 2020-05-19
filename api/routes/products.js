@@ -160,7 +160,7 @@ router.put('/update/offer',(req,res,next) =>{
     const productId = req.body._id;
     const offer = req.body.offer;
 
-    Product.update({"product":productId}, {
+    /*Product.update({"product":productId}, {
         $set: {
             "product.$.offer": offer
         }
@@ -174,6 +174,20 @@ router.put('/update/offer',(req,res,next) =>{
         .catch(error => {
             res.status(500).json({
                 error: error
+            });
+        });*/
+
+    console.log(offer);
+    Product.findByIdAndUpdate(productId, { offer: offer})
+        .exec()
+        .then(product => {
+            res.status(201).json({
+                message: 'Discount added'
+            });
+        })
+        .catch(error => {
+            res.status(500).json({
+                error:error
             });
         });
 
