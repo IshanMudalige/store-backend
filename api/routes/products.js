@@ -208,6 +208,17 @@ router.put('/addReview', authenticate, (req, res, next) => {
 
 });
 
+router.delete('/delete/:id', function (req, res) {
+    let id = req.params.id;
+
+    Product.findById(req.params.id).then(emp => {
+        emp.remove();
+        res.send('Product removed');
+    }).catch(err =>{
+        res.send(err)
+    })
+});
+
 
 
 module.exports = router;
