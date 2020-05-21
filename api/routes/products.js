@@ -5,7 +5,7 @@ const Product = require('../models/product');
 const Category = require('../models/category');
 const authenticate = require('../middleware/authenticate');
 
-//------create product--------
+//-----------------Add a product----------------------
 router.post('/create', authenticate, (req, res, next) => {
 
     const slug = req.body.name.replace(/ /g, '-') +'-'+ Date.now();
@@ -37,6 +37,7 @@ router.post('/create', authenticate, (req, res, next) => {
 
 });
 
+//-----------------Get all products-----------------
 router.get('/', (req, res, next) => {
 
     Product.find({})
@@ -55,6 +56,7 @@ router.get('/', (req, res, next) => {
 
 });
 
+//-----------------Get products by category--------------------
 router.get('/:categorySlug', (req, res, next) => {
 
     let filter = {};
@@ -129,6 +131,7 @@ router.get('/:categorySlug', (req, res, next) => {
         });
 });
 
+//----------------Get a Product---------------------
 router.get('/:categorySlug/:productSlug', (req, res, next) => {
 
     const productSlug = req.params.productSlug;
@@ -155,6 +158,7 @@ router.get('/:categorySlug/:productSlug', (req, res, next) => {
 
 });
 
+//------------------Add discounts to a Product---------------------
 router.put('/update/offer',(req,res,next) =>{
 
     const productId = req.body._id;
@@ -193,6 +197,7 @@ router.put('/update/offer',(req,res,next) =>{
 
 });
 
+//------------------Add review to a Product----------------------
 router.put('/addReview', authenticate, (req, res, next) => {
 
     const review = {
@@ -222,6 +227,7 @@ router.put('/addReview', authenticate, (req, res, next) => {
 
 });
 
+//-----------------Delete a Product-----------------------
 router.delete('/delete/:id', function (req, res) {
     let id = req.params.id;
 
