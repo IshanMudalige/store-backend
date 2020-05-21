@@ -129,5 +129,25 @@ router.put('/update/quantity', (req, res, next) => {
         });
 
 });
+/*router.delete('/delete/:id', function(req, res) {
+    let id = req.params.id;
+    CartItem.findById(req.params.id)
+        .then(cart=>{
+            cart.remove();
+            res.send('cart removed');
+        })
+        .catch((err) => res.send(err));
+});*/
+
+router.delete('/delete/:id', (req, res) => {
+    let id=req.params.id;
+    CartItem.findById(req.params.id)
+        .then(cart=> {
+        cart.remove();
+        res.send('cart removed');})
+        .catch((err) => res.send(err));
+});
+
+
 
 module.exports = router;
