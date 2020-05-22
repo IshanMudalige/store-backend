@@ -41,7 +41,7 @@ router.post('/create', authenticate, (req, res, next) => {
 router.get('/', (req, res, next) => {
 
     Product.find({})
-        .select('_id name price productPic slug stock offer createdAt')
+        .select('_id name price productPic slug stock offer createdAt rating')
         .exec()
         .then(products => {
             res.status(200).json({
@@ -65,6 +65,7 @@ router.get('/:categorySlug', (req, res, next) => {
     }
 
     const slug = req.params.categorySlug;
+
     Category.findOne({slug: slug})
         .select('_id parent')
         .exec()
@@ -77,9 +78,8 @@ router.get('/:categorySlug', (req, res, next) => {
                         .exec()
                         .then(categories => {
                             const categoriesAr = categories.map(category => category._id);
-
                             Product.find({ "category": { $in: categoriesAr } })
-                                .select('_id name price productPic category slug')
+                                .select('_id name price productPic category slug rating')
                                 .sort(filter)
                                 .exec()
                                 .then(products => {
@@ -101,7 +101,7 @@ router.get('/:categorySlug', (req, res, next) => {
 
                 }else{
                     Product.find({category: category._id})
-                        .select('_id name price productPic category slug')
+                        .select('_id name price productPic category slug rating')
                         .sort(filter)
                         .exec()
                         .then(products => {
@@ -210,7 +210,7 @@ router.put('/addReview', authenticate, (req, res, next) => {
     }
 
     const productId = req.body.productId;
-    console.log(review);
+
    Product.findByIdAndUpdate(productId,{ $push:{reviews:review}})
        .exec()
        .then(product => {
@@ -224,6 +224,26 @@ router.put('/addReview', authenticate, (req, res, next) => {
            });
        });
 
+    Product.findById(productId)
+        .select('reviews.rating')
+        .exec()
+        .then(reviews => {
+            let total = 0;
+            for(let i = 0; i < reviews.reviews.length;i++){
+                total = total +reviews.reviews[i].rating;
+            }
+            let avg = total/reviews.reviews.length;
+
+            Product.findByIdAndUpdate(productId,{ $set:{rating:avg}})
+                .exec()
+                .then(product => {
+
+                })
+
+        })
+        .catch(error => {
+            console.log(error)
+        });
 
 });
 

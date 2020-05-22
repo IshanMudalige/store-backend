@@ -8,7 +8,7 @@ const authenticate  = require('../middleware/authenticate');
 const User = require('../models/user');
 const UserAddress = require('../models/UserAddress');
 
-//---- user signup ----
+//---------------- user signup ---------------------------
 router.post('/signup', (req, res, next) => {
     User.findOne({email: req.body.email})
         .exec()
@@ -50,7 +50,7 @@ router.post('/signup', (req, res, next) => {
         });
 });
 
-//---- user login ----
+//----------------------- user login --------------------------
 router.post('/login', (req, res, next) => {
     User.findOne({email: req.body.email})
         .select('_id firstName lastName email isAdmin isManager password')
@@ -116,6 +116,7 @@ router.post('/login', (req, res, next) => {
 
 });
 
+//-----------------------add new user address -------------------------------------
 router.post('/new-address', authenticate, (req, res, next) => {
 
     UserAddress.findOne({"user": req.body.userId})
@@ -163,6 +164,7 @@ router.post('/new-address', authenticate, (req, res, next) => {
 
 });
 
+//----------------------------- get user addresses ------------------------------------------
 router.get('/get-addresses/:userId', authenticate, (req, res, next) => {
 
     UserAddress.findOne({"user": req.params.userId})

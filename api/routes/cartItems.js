@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose')
 const CartItem = require('../models/cartItem');
 
-
+//-------------add items to cart ---------------------
 router.post('/add', (req, res, next) => {
 
     CartItem.findOne({user: req.body.user})
@@ -12,7 +12,7 @@ router.post('/add', (req, res, next) => {
 
             if(cartItem){
 
-                const item = cartItem.cart.find(item => item.product == req.body.product);
+                const item = cartItem.cart.find(item => item.product === req.body.product);
                 let where, action, set;
                 if(item){
                     action = "$set";

@@ -7,6 +7,7 @@ const productSchema = mongoose.Schema({
     stock: { type: Number, required: true },
     description: { type: String },
     offer: { type: Number, default: 0},
+    rating:{type:Number,default:0},
     productPic: [
         {
             img: String

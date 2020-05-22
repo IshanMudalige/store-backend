@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 
 });
 
-//--- admin signup ----
+//-------------- create admin ------------------
 router.post('/signup', (req, res, next) => {
 
     User.find({email: req.body.email})

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const nodemailer = require('nodemailer');
 
-var transport = nodemailer.createTransport({
+let transport = nodemailer.createTransport({
     host: "smtp.mailtrap.io",
     port: 2525,
     //service:'gmail',
@@ -15,6 +15,7 @@ var transport = nodemailer.createTransport({
     }
 });
 
+//------------- get all managers ----------------------
 router.get('/', (req, res, next) => {
     User.find({isManager:true})
         .exec()
@@ -31,7 +32,7 @@ router.get('/', (req, res, next) => {
 
 });
 
-//--- manager signup ----
+//------------- add new manager  -----------
 router.post('/signup', (req, res, next) => {
 
     User.find({email: req.body.email})
@@ -97,6 +98,7 @@ router.post('/signup', (req, res, next) => {
 
 });
 
+//--------------- remove manager -------------------------
 router.delete('/delete/:id', function (req, res) {
     let id = req.params.id;
 
