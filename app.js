@@ -33,12 +33,12 @@ app.use('/products', productRoutes);
 app.use('/cart', authenticate, cartItemRoutes);
 app.use('/order', authenticate, orderRoutes);
 
-// if(process.env.NODE_ENV === 'production') {
+if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, './client/build')));
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname + './client/build/index.html'));
     });
-// }
+}
 
 app.use((req, res, next) => {
     res.status(404).json({
