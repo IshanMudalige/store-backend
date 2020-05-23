@@ -139,12 +139,14 @@ router.put('/update/quantity', (req, res, next) => {
         .catch((err) => res.send(err));
 });*/
 
-router.delete('/delete/:id', (req, res) => {
-    let id=req.params.id;
-    CartItem.findById(req.params.id)
+router.put('/delete/:userId/:itemId', (req, res) => {
+
+    CartItem.findOneAndUpdate({user:req.params.userId},{$pull:{cart:{product:req.params.itemId}}})
+        .exec()
         .then(cart=> {
-        cart.remove();
-        res.send('cart removed');})
+
+            res.send('cart removed.');
+        })
         .catch((err) => res.send(err));
 });
 
