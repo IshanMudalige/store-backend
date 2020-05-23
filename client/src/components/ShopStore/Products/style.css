@@ -1,0 +1,125 @@
+.Content{
+    width: 90%;
+    /*border-top: 3px solid #000;*/
+    margin: 0 auto;
+    /*border-bottom: 1px solid #eee;*/
+}
+.ContentTitle{
+    text-align: center;
+    margin: 20px 0;
+}
+.CategoryTitle{
+    letter-spacing: 2px;
+    font-size: 30px;
+    font-weight: 300;
+    font-family:'Baloo 2', cursive;
+    text-transform: capitalize;
+    background-color: #343A40;
+    color: white;
+}
+
+.ProductArea{
+    display: flex;
+    flex-wrap: wrap;
+}
+.Product{
+    width: 280px;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    /*text-align: center;*/
+    margin: 0 20px 20px 0;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+    backface-visibility: hidden;
+}
+
+.Product:hover{
+    transform: scale(1.05);
+}
+.Product > .ProductImage{
+    width: 80%;
+    height: 230px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.Product > .ProductImage > img{
+    max-width: 100%;
+    height: 280px;
+}
+.ProductDetails{
+    margin: 20px 0;
+}
+
+.ContentBody{
+    display: flex;
+}
+.ContentBody .SideMenu{
+    flex: 2;
+}
+.ContentBody .MainContent{
+    flex: 7;
+}
+.SideMenu{
+    border: 1px solid #cecece;
+    margin-right: 30px;
+    box-sizing: border-box;
+}
+.SideMenu .SideMenuTitle{
+    font-size: 18px;
+    border-bottom: 1px solid #cecece;
+    padding: 5px 10px;
+    background-color: #343A40;
+    color: white;
+}
+.Filter .FilterTitle{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+.SideMenu ul{
+    position: relative;
+}
+.SideMenu ul li{
+    margin-left: 10px;
+    font-size: 14px;
+}
+.SideMenu > ul > li > a:nth-of-type(1){
+    font-weight: bold;
+}
+.FilterButton{
+    background: #343A40;
+    border: 1px solid #cecece;
+    width: 95%;
+    margin: 2px 5px;
+    padding: 5px 0;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    color: white;
+}
+
+.product-name{
+    font-size: 20px;
+    font-family:'Baloo 2', cursive;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.product-price{
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Jost', sans-serif;
+    margin-left: 5px;
+}
+
+.star-rating{
+    margin-left: 20px;
+}
+
+
+
+
+
+

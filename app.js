@@ -4,7 +4,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authenticate = require('./api/middleware/authenticate');
 
-mongoose.connect('mongodb+srv://'+ process.env.MONGODB_USERNAME +':'+ process.env.MONGODB_PASSWORD +'@cluster0-vgwyw.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false});
+// 'mongodb+srv://'+ process.env.MONGODB_USERNAME +':'+ process.env.MONGODB_PASSWORD +'@cluster0-vgwyw.mongodb.net/test?retryWrites=true&w=majority'
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://'+ process.env.MONGODB_USERNAME +':'+ process.env.MONGODB_PASSWORD +'@cluster0-vgwyw.mongodb.net/test?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false});
+
 
 const adminRoutes = require('./api/routes/admins');
 const categoryRoutes = require('./api/routes/categories');
@@ -27,12 +33,12 @@ app.use('/products', productRoutes);
 app.use('/cart', authenticate, cartItemRoutes);
 app.use('/order', authenticate, orderRoutes);
 
-if(process.env.NODE_ENV === 'production') {
+// if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, './client/build')));
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname + './client/build/index.html'));
     });
-}
+// }
 
 app.use((req, res, next) => {
     res.status(404).json({
